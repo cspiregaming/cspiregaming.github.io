@@ -23,6 +23,7 @@ var scroll;
 
 scroll = ( 2500 - $(window).width() ) / $(window).width();
 
+
 var window_height;
 var window_width;
 
@@ -171,21 +172,9 @@ gaia = {
             }
     }, 17),
 
-    checkScrollForParallax: debounce(function() {
-        	$('.parallax').each(function() {
-        	    var $elem = $(this);
-
-        	    if(isElementInViewport($elem)){
-                  var parent_top = $elem.offset().top;
-                  var window_bottom = $(window).scrollTop();
-                  var $image = $elem.children('.image');
-
-            	  oVal = ((window_bottom - parent_top) / 3);
-                  $image.css('transform','translate3d(0px, ' + oVal + 'px, 0px)');
-        	    }
-            });
-
-    }, 6),
+    checkScrollForParallax: function() {
+        // Parallax is handled by CSS background-attachment: fixed — no JS needed.
+    },
 
     checkScrollForContentTransitions: debounce(function() {
          $('.content-with-opacity').each(function() {

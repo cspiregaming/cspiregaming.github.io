@@ -165,6 +165,12 @@ nav:not(.navbar-transparent) {
   margin-top: 0 !important;
 }
 
+@media (min-width: 993px) {
+  .section .image {
+    background-attachment: fixed;
+  }
+}
+
 .mb-0 {
   margin-bottom: 0 !important;
 }
