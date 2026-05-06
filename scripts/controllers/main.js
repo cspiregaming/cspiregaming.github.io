@@ -7,7 +7,54 @@
  * # MainCtrl
  * Controller of the cSpireGamingWebApp
  */
-angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $filter) {
+angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $filter, $http) {
+
+  var WORKER_BASE = 'https://cspiregaming-api.michaellamb.workers.dev';
+
+  // ─── Members ───────────────────────────────────────────────────
+  $scope.memberRoles = [];
+  $scope.members = [];
+  $scope.filteredMembers = [];
+  $scope.roleCounts = {};
+  $scope.selectedRole = 'all';
+  $scope.membersLoading = true;
+  $scope.membersError = null;
+  $scope.membersFetchedAt = null;
+
+  $http.get(WORKER_BASE + '/api/public/members').then(function (res) {
+    var data = res.data;
+    var rolesById = {};
+    data.roles.forEach(function (r) { rolesById[r.id] = r; });
+
+    $scope.memberRoles = data.roles;
+    $scope.membersFetchedAt = data.fetchedAt;
+    $scope.members = data.members.map(function (m) {
+      m.visibleRoles = m.roles
+        .map(function (id) { return rolesById[id]; })
+        .filter(Boolean)
+        .sort(function (a, b) { return b.position - a.position; });
+      return m;
+    });
+
+    data.roles.forEach(function (r) {
+      $scope.roleCounts[r.id] = $scope.members.filter(function (m) {
+        return m.roles.indexOf(r.id) !== -1;
+      }).length;
+    });
+
+    $scope.filterMembers('all');
+    $scope.membersLoading = false;
+  }, function () {
+    $scope.membersLoading = false;
+    $scope.membersError = 'Could not load members. Try again later.';
+  });
+
+  $scope.filterMembers = function (roleId) {
+    $scope.selectedRole = roleId;
+    $scope.filteredMembers = roleId === 'all'
+      ? $scope.members
+      : $scope.members.filter(function (m) { return m.roles.indexOf(roleId) !== -1; });
+  };
 
   // Other
   $scope.totalMembers = 315;

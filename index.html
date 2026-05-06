@@ -191,6 +191,52 @@
   </div>
 </div>
 
+<div id="members" class="section section-members">
+  <div class="container">
+    <div class="title-area">
+      <h1 class="mt-0">C&nbsp;Spire Gaming Members</h1>
+      <div class="separator separator-blue"><i class="fas fa-power-off"></i></div>
+    </div>
+
+    <!-- Role filter toolbar -->
+    <div class="members-toolbar" ng-if="!membersLoading && !membersError && memberRoles.length">
+      <button class="members-chip" ng-class="{'is-active': selectedRole === 'all'}"
+              ng-click="filterMembers('all')">
+        All <span class="members-chip__count">{{members.length}}</span>
+      </button>
+      <button class="members-chip" ng-repeat="role in memberRoles"
+              ng-class="{'is-active': selectedRole === role.id}"
+              ng-click="filterMembers(role.id)">
+        <span class="role-dot" ng-if="role.color" ng-style="{'background': role.color}"></span>
+        {{role.name}} <span class="members-chip__count">{{roleCounts[role.id]}}</span>
+      </button>
+    </div>
+
+    <!-- Loading / error states -->
+    <p class="members-status" ng-if="membersLoading">Loading members...</p>
+    <p class="members-status members-status--error" ng-if="membersError">{{membersError}}</p>
+
+    <!-- Member grid -->
+    <ul class="members-grid" ng-if="!membersLoading && !membersError && filteredMembers.length">
+      <li class="member-card" ng-repeat="member in filteredMembers">
+        <img class="member-card__avatar" ng-src="{{member.avatar}}" alt="" loading="lazy">
+        <h3 class="member-card__name">{{member.displayName}}</h3>
+        <p class="member-card__handle">@{{member.username}}</p>
+        <ul class="member-card__roles">
+          <li class="role-badge" ng-repeat="role in member.visibleRoles">
+            <span class="role-badge__dot" ng-if="role.color" ng-style="{'background': role.color}"></span>
+            {{role.name}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <p class="members-footer" ng-if="membersFetchedAt && !membersLoading">
+      Updated {{membersFetchedAt | relativeTime}}
+    </p>
+  </div>
+</div>
+
 <div id="careers" class="section section-our-team-freebie">
   <div class="parallax filter-dark">
     <div class="image" style="background-image: url('img/lead-the-way.png')">

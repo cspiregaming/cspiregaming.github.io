@@ -8,7 +8,20 @@
  *
  * Main module of the application.
  */
-angular.module('cSpireGamingWebApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch']).config(function ($routeProvider, $sceDelegateProvider, $locationProvider) {
+angular.module('cSpireGamingWebApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch'])
+
+.filter('relativeTime', function () {
+  return function (iso) {
+    if (!iso) return '';
+    var diff = Math.floor((Date.now() - new Date(iso)) / 1000);
+    if (diff < 60) return 'just now';
+    if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    return new Date(iso).toLocaleDateString();
+  };
+})
+
+.config(function ($routeProvider, $sceDelegateProvider, $locationProvider) {
     
     $locationProvider.hashPrefix('');
 
