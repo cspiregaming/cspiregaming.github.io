@@ -42,7 +42,10 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
       }).length;
     });
 
-    $scope.filterMembers('all');
+    var initialRole = data.defaultRoleId && rolesById[data.defaultRoleId]
+      ? data.defaultRoleId
+      : 'all';
+    $scope.filterMembers(initialRole);
     $scope.membersLoading = false;
   }, function () {
     $scope.membersLoading = false;
