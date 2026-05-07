@@ -170,6 +170,7 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
       actionButtonUrl: actionButtonUrl,
       googleMapsUrl: ev.googleMapsUrl || null,
       isPast: ev.status === 'COMPLETED',
+      source: ev.source,
     };
   }
 

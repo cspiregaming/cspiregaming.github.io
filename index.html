@@ -150,7 +150,12 @@
         </div>
         <div ng-class="event.imagePath ? 'col-md-7' : 'col-md-12'">
           <span class="event-card__badge" ng-if="event.isPast">Past Event</span>
-          <h2 class="event-card__title">{{event.title}}</h2>
+          <h2 class="event-card__title">
+            {{event.title}}<i class="fab fa-discord event-card__source-icon"
+                              ng-if="event.source === 'discord'"
+                              title="This event was created in the C Spire Gaming Discord server"
+                              aria-label="From Discord"></i>
+          </h2>
           <p class="event-card__subtitle" ng-if="event.subtitle">{{event.subtitle}}</p>
           <div class="event-card__description" ng-if="event.description" ng-bind-html="event.description"></div>
           <a class="btn btn-orange btn-fill" target="_blank" ng-if="event.actionButtonUrl" ng-href="{{event.actionButtonUrl}}">

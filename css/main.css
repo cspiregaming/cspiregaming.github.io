@@ -370,7 +370,7 @@ nav:not(.navbar-transparent) {
 /* ─── Events section ──────────────────────────────────────────── */
 
 .section-events {
-  background: var(--white);
+  background: var(--light-stone);
   padding: 60px 0;
 }
 
@@ -378,8 +378,8 @@ nav:not(.navbar-transparent) {
   background: var(--white);
   border: 1px solid var(--cool-gray);
   border-radius: 12px;
-  padding: 28px;
-  margin-bottom: 24px;
+  padding: 24px;
+  margin-bottom: 20px;
   transition: border-color 0.15s, transform 0.15s;
 }
 
@@ -389,8 +389,7 @@ nav:not(.navbar-transparent) {
 }
 
 .event-card--past {
-  background: var(--light-stone);
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .event-card__image {
@@ -398,6 +397,7 @@ nav:not(.navbar-transparent) {
   border-radius: 8px;
   object-fit: cover;
   max-height: 280px;
+  margin-bottom: 12px;
 }
 
 .event-card__badge {
@@ -416,6 +416,19 @@ nav:not(.navbar-transparent) {
   color: var(--steel-blue);
   margin-top: 0;
   margin-bottom: 6px;
+}
+
+.event-card__source-icon {
+  font-size: 0.55em;
+  color: #5865f2; /* Discord brand */
+  margin-left: 8px;
+  vertical-align: super;
+  cursor: help;
+  transition: opacity 0.15s;
+}
+
+.event-card__source-icon:hover {
+  opacity: 0.7;
 }
 
 .event-card__subtitle {
@@ -442,5 +455,5 @@ nav:not(.navbar-transparent) {
 
 @media (max-width: 600px) {
   .section-events { padding: 40px 0; }
-  .event-card { padding: 20px; }
+  .event-card { padding: 18px; }
 }
