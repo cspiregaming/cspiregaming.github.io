@@ -88,40 +88,54 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
 
   /* Example event above. DO NOT DELETE */
 
-  // Officer List
+  // Officer List — hardcoded fallback for if /api/public/content is unreachable.
+  // Authoritative source is KV via the admin console; keep this in sync only
+  // as a minimum-viable fallback (it's fine if it drifts a little).
+  var IMG_BASE = 'https://cspiregaming.github.io/img/faces/';
   $scope.officers = [{
     name: 'Jeana<br>Smith',
-    image: 'jeana-smith.png',
+    image: IMG_BASE + 'jeana-smith.png',
     about: `<strong>Jeana Smith</strong> is the team lead of mobile app development at C Spire. She'd like to make a Legend of Zelda pun here, but she doesn't want to Tri and Force it.`
   }, {
     name: 'Matt<br>Turner',
-    image: 'matt-turner.png',
+    image: IMG_BASE + 'matt-turner.png',
     about: `<strong>Matthew Turner</strong> is a LTE wizard who uses his powers for good. Once a hardcore MMO raider, he now prefers games with a little less commitment. He also has a passion for all things hardware.`
   }, {
     name: 'Michael<br>Lamb',
-    image: 'michael-lamb.png',
+    image: IMG_BASE + 'michael-lamb.png',
     about: `<strong>Michael Lamb</strong> is a software engineer and uses his talents to connect and empower Mississippi gamers. Lately he's been playing No Man's Sky. `
   }, {
     name: 'Burrell<br>Gee',
-    image: 'burrell-gee.jpg',
+    image: IMG_BASE + 'burrell-gee.jpg',
     about: '<strong>Burrell Gee</strong> is a team lead and polymath who also loves all things gaming. At his best behind the GM Screen or crushing his foes on the KB&M, and as an occasional console dabbler, <strong>Burrell</strong> has been gaming since the days of Zork!'
   }, {
     name: 'Charles<br>McEuen',
-    image: 'charles-mceuen.jpg',
+    image: IMG_BASE + 'charles-mceuen.jpg',
     about: '<strong>Super Chuck</strong> aka <strong>Charles</strong> keeps himself busy with C Spire Business business but is known to enjoy getting up to some shenanigans in C Spire Gaming business. His speciality is N64 gaming.'
   }, {
     name: 'John<br>Richard',
-    image: 'john-richard.png',
+    image: IMG_BASE + 'john-richard.png',
     about: 'Originally from Iowa, the world of gaming started for <strong>John Richard</strong> with GoldenEye 007, but grew into a passion with the teamwork found in Battlefield 2142 clan tournaments. Nowadays, the Mississippi humidity has encouraged him to hone his Rocket League skills in the time between braving the soccer fields, changing his newborn\'s diaper, and working as one of C Spire\'s Corporate Recruiters.'
   }, {
     name: 'Alyx<br>Chaivre',
-    image: 'alyx.jpg',
+    image: IMG_BASE + 'alyx.jpg',
     about: 'Hailing from the far off land of Delaware, Alyx Chaivre is a dedicated software developer and avid gamer; loving games of all kinds from tabletop adventures to console and pc quests! When she isn\'t hunting elusive shiny pokemon, you can find her working behind the scenes in Billing.'
   }, {
     name: 'Zack<br>Sistrunk',
-    image: 'zacksistrunk.png',
+    image: IMG_BASE + 'zacksistrunk.png',
     about: 'A powerhouse for integrating systems and working with client teams, <strong>Zack Sistrunk</strong> joined C Spire Gaming to show off his talents for mastering the most challenging titles in the industry. With lightning-fast reflexes and strategic thinking honed through years of competitive gaming, Zack brings a player\'s perspective to every project.'
   }];
+
+  // Try to load the live officer list from the worker. If anything fails,
+  // we silently keep the fallback above.
+  $http.get(WORKER_BASE + '/api/public/content').then(function (res) {
+    var data = res.data;
+    if (data && Array.isArray(data.officers) && data.officers.length) {
+      $scope.officers = data.officers
+        .slice()
+        .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    }
+  }, function () { /* keep fallback */ });
 
   function getPosition(element) {
     var xPosition = 0;
@@ -167,20 +181,5 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
       });
     }
   };
-
-  function shuffle(list) {
-    var m = list.length, t, i;
-
-    while (m) {
-      i = Math.floor(Math.random() * m--);
-      t = list[m];
-      list[m] = list[i];
-      list[i] = t;
-    }
-
-    return list;
-  }
-
-  $scope.officers = shuffle($scope.officers);
 
 });
