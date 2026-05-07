@@ -7,9 +7,11 @@
  * # MainCtrl
  * Controller of the cSpireGamingWebApp
  */
-angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $filter, $http) {
+angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $filter, $http, $sce) {
 
   var WORKER_BASE = 'https://cspiregaming-api.michaellamb.workers.dev';
+
+  $scope.trustUrl = function (url) { return $sce.trustAsResourceUrl(url); };
 
   // ─── Members ───────────────────────────────────────────────────
   $scope.memberRoles = [];
@@ -129,8 +131,8 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
     about: 'A powerhouse for integrating systems and working with client teams, <strong>Zack Sistrunk</strong> joined C Spire Gaming to show off his talents for mastering the most challenging titles in the industry. With lightning-fast reflexes and strategic thinking honed through years of competitive gaming, Zack brings a player\'s perspective to every project.'
   }];
 
-  // Try to load the live officer list from the worker. If anything fails,
-  // we silently keep the fallback above.
+  // Try to load the live officer list and events from the worker. If anything
+  // fails, we silently keep the officer fallback above and an empty events list.
   $http.get(WORKER_BASE + '/api/public/content').then(function (res) {
     var data = res.data;
     if (data && Array.isArray(data.officers) && data.officers.length) {
@@ -138,7 +140,38 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
         .slice()
         .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
     }
+    if (data && Array.isArray(data.events)) {
+      $scope.events = data.events.map(decorateEvent);
+    }
   }, function () { /* keep fallback */ });
+
+  function decorateEvent(ev) {
+    var startTime = ev.startTime ? new Date(ev.startTime) : null;
+    var subtitle = ev.subtitle;
+    if (!subtitle && startTime && !isNaN(startTime)) {
+      subtitle = startTime.toLocaleString(undefined, {
+        weekday: 'short', month: 'short', day: 'numeric',
+        hour: 'numeric', minute: '2-digit',
+      });
+      if (ev.location) subtitle += ' | ' + ev.location;
+    }
+    var actionButtonText = ev.actionButtonText;
+    var actionButtonUrl = ev.actionButtonUrl;
+    if (ev.source === 'discord' && !actionButtonUrl) {
+      actionButtonText = 'View on Discord';
+      actionButtonUrl = ev.discordUrl;
+    }
+    return {
+      title: ev.title,
+      subtitle: subtitle,
+      description: ev.description,
+      imagePath: ev.imagePath || ev.coverImage || null,
+      actionButtonText: actionButtonText,
+      actionButtonUrl: actionButtonUrl,
+      googleMapsUrl: ev.googleMapsUrl || null,
+      isPast: ev.status === 'COMPLETED',
+    };
+  }
 
   function getPosition(element) {
     var xPosition = 0;
