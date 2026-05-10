@@ -8,9 +8,26 @@
   --orange: #FF6720;
   --cool-gray: #98A4AE;
   --light-stone: #E4E8F0;
+  --nano-grey: #EDF1F7;
+  --c-spire-glow: #B9DEF3;
   --white: #ffffff;
   --slate-black: #131E29;
   --green: #489D4D;
+
+  /* Brand gradients — Consumer (energetic; blue dominant, purple accent) */
+  --gradient-energy-linear: linear-gradient(180deg, #00C0F3 0%, #884D9D 100%);
+  --gradient-energy-diagonal: linear-gradient(135deg, #00C0F3 0%, #5BA0CD 55%, #884D9D 100%);
+  --gradient-energy-radial: radial-gradient(circle at 50% 35%, #00C0F3 0%, #46A3D6 55%, #884D9D 100%);
+
+  /* Brand gradients — Deep (Steel/Onyx for dark sections) */
+  --gradient-deep-blue: radial-gradient(ellipse at 50% 30%, #2A8FBF 0%, #0F3D58 75%);
+  --gradient-steel: radial-gradient(ellipse at 50% 40%, #1F5D85 0%, #0F3D58 80%);
+  --gradient-onyx: radial-gradient(ellipse at 50% 30%, #0F3D58 0%, #131E29 80%);
+
+  /* Brand gradients — Subtle (light sections) */
+  --gradient-soft-glow: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(0, 192, 243, 0.18) 0%, transparent 70%);
+  --gradient-stone-glow: radial-gradient(ellipse 80% 70% at 50% 0%, #F4F8FC 0%, var(--light-stone) 65%);
+  --gradient-light-radial: radial-gradient(ellipse at 50% 40%, var(--white) 0%, var(--nano-grey) 100%);
 }
 
 html {
@@ -112,12 +129,17 @@ sub-head {
   margin-bottom: 25px;
 }
 
-nav:not(.navbar-transparent) {
+.navbar-default:not(.navbar-transparent) {
   background-color: var(--steel-blue);
 }
 
 .navbar-default .navbar-toggle .icon-bar {
   background-color: var(--steel-blue) !important;
+}
+
+.footer nav,
+.footer nav > ul {
+  background: transparent;
 }
 
 
@@ -177,7 +199,26 @@ nav:not(.navbar-transparent) {
 }
 
 .footer {
+  background: var(--steel-blue);
+  background-image: var(--gradient-onyx);
   background-color: var(--steel-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 80% 0%, rgba(0, 192, 243, 0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 60% at 10% 100%, rgba(136, 77, 157, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer .container {
+  position: relative;
+  z-index: 1;
 }
 
 .footer nav > ul a:not(.btn),
@@ -186,11 +227,21 @@ nav:not(.navbar-transparent) {
 }
 
 .footer nav > ul a:not(.btn):hover, .footer nav > ul a:not(.btn):focus {
-  color: var(--orange);
+  color: var(--kinetic-orange);
 }
 
+/* Generic parallax overlay = brand consumer gradient (Blue → Magnetic Purple).
+   Kept light so the underlying photography shows through. */
 .filter:before {
-  background: linear-gradient(0deg, var(--c-spire-blue) 0%, var(--steel-blue) 0%);
+  background: linear-gradient(135deg, rgba(0, 192, 243, 0.55) 0%, rgba(70, 163, 214, 0.45) 50%, rgba(136, 77, 157, 0.55) 100%);
+  opacity: 1;
+}
+
+/* Dark parallax overlay = brand depth gradient (Steel → Onyx).
+   Kept lighter so the underlying photography shows through. */
+.filter-dark:before {
+  background: radial-gradient(ellipse at 50% 30%, rgba(15, 61, 88, 0.55) 0%, rgba(19, 30, 41, 0.78) 80%);
+  opacity: 1;
 }
 
 .mt-0 {
@@ -207,9 +258,21 @@ nav:not(.navbar-transparent) {
   margin-bottom: 0 !important;
 }
 
+#officers > li a .image-clients img {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+#officers > li:hover a .image-clients img {
+  box-shadow: 0 0 0 6px rgba(0, 192, 243, 0.35);
+  transform: translateY(-3px);
+}
+
 #officers > li.active a .image-clients img {
   opacity: 1;
-  box-shadow: 0 0 0 8px #00c0f3;
+  box-shadow:
+    0 0 0 4px var(--white),
+    0 0 0 10px var(--c-spire-blue),
+    0 12px 32px -8px rgba(136, 77, 157, 0.55);
   transition: 0.2s linear;
 }
 
@@ -234,8 +297,21 @@ nav:not(.navbar-transparent) {
 /* ─── Members section ─────────────────────────────────────────── */
 
 .section-members {
-  background: var(--light-stone);
+  background: var(--gradient-stone-glow);
   padding: 60px 0;
+  position: relative;
+}
+
+.section-members::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0, 192, 243, 0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.section-members > .container {
+  position: relative;
 }
 
 .members-toolbar {
@@ -402,8 +478,22 @@ nav:not(.navbar-transparent) {
 /* ─── Events section ──────────────────────────────────────────── */
 
 .section-events {
-  background: var(--light-stone);
+  background: var(--gradient-stone-glow);
   padding: 60px 0;
+  position: relative;
+}
+
+.section-events::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 50% at 80% 20%, rgba(136, 77, 157, 0.06) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0, 192, 243, 0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.section-events > .container {
+  position: relative;
 }
 
 .event-card {
@@ -494,4 +584,355 @@ nav:not(.navbar-transparent) {
 @media (max-width: 600px) {
   .section-events { padding: 40px 0; }
   .event-card { padding: 18px; }
+}
+
+
+/* ─── Brand Gradient Refresh ──────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* === Gradient text utility (per brand: headline-only, message-of-innovation) === */
+.gradient-text {
+  background: linear-gradient(135deg, #00C0F3 0%, #46A3D6 55%, #884D9D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* === Hero / section-header — diagonal Blue → Magnetic Purple === */
+.section-header {
+  position: relative;
+  background: linear-gradient(110deg, #00C0F3 0%, #1FA9DC 38%, #6E73B5 72%, #884D9D 100%);
+  overflow: hidden;
+}
+
+.section-header .parallax {
+  background: transparent;
+  min-height: 56vh;
+}
+
+/* Brand-compliant atmospheric accents on the diagonal Blue→Magnetic Purple gradient.
+   No off-palette colors per brand rule (gradient palette is blue/purple/steel/onyx only). */
+.section-header .parallax > .image {
+  background-image:
+    radial-gradient(ellipse 50% 80% at 90% 50%, rgba(136, 77, 157, 0.55) 0%, rgba(136, 77, 157, 0.0) 65%),
+    radial-gradient(ellipse 40% 70% at 8% 35%, rgba(255, 255, 255, 0.20) 0%, transparent 60%),
+    linear-gradient(110deg, #00C0F3 0%, #1FA9DC 38%, #6E73B5 72%, #884D9D 100%) !important;
+  background-size: cover, cover, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hero left intentionally pattern-free — let the gradient do the work. */
+
+/* Kinetic Orange halo behind the logo — atmospheric backdrop (not a logo effect).
+   Acts as a violator-style energy accent, the brand-approved use for Kinetic Orange.
+   Choreography: bloom rises → peaks centered → sweeps left to right across the brand
+   → returns to centered peak → fades back down to begin the loop. */
+.section-header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  max-width: 700px;
+  aspect-ratio: 1.8 / 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255, 103, 32, 0.85) 0%, rgba(255, 103, 32, 0.55) 22%, rgba(255, 103, 32, 0.22) 50%, rgba(255, 103, 32, 0) 75%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 3;
+  animation: heroBloomSweep 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes heroBloomSweep {
+  /* Rise from rest to centered peak */
+  0% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) translateX(0) scale(0.9);
+  }
+  22% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(0) scale(1.06);
+  }
+  /* Hold the peak briefly */
+  32% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(0) scale(1.06);
+  }
+  /* Sweep left edge of the brand */
+  42% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(-36%) scale(1.06);
+  }
+  /* Sweep through to right edge of the brand */
+  62% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(36%) scale(1.06);
+  }
+  /* Return to centered peak */
+  76% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(0) scale(1.06);
+  }
+  /* Fade back down to rest */
+  100% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) translateX(0) scale(0.9);
+  }
+}
+
+.section-header .container {
+  z-index: 4;
+}
+
+.section-header .content {
+  z-index: 4;
+}
+
+/* Per brand rule, no drop-shadow / glow / effects ON the logo itself. */
+.section-header .title-area img {
+  animation: heroLogoIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroLogoIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Orange stripes — removed; gradient carries the hero on its own. */
+.orange-stripes {
+  display: none;
+}
+
+/* === "Who we are" + officers + careers — section atmospherics === */
+.section {
+  position: relative;
+}
+
+/* "Who we are" block (the first .section after the header) gets a soft top glow */
+.section-header + .section {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0, 192, 243, 0.10) 0%, transparent 65%),
+    var(--white);
+}
+
+/* Officers section (the .section-our-team-freebie after #connect) */
+#connect + .section.section-our-team-freebie {
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(136, 77, 157, 0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0, 192, 243, 0.07) 0%, transparent 60%),
+    var(--white);
+}
+
+/* === Section title separators — replace power-off icon with branded pill === */
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px auto 28px;
+  height: 4px;
+  width: 200px;
+  position: relative;
+}
+
+.separator i {
+  display: none;
+}
+
+.separator-blue {
+  background: linear-gradient(90deg, transparent 0%, var(--c-spire-blue) 30%, var(--magnetic-purple) 70%, transparent 100%);
+  border-radius: 999px;
+}
+
+.separator-blue::before,
+.separator-blue::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: var(--c-spire-blue);
+  box-shadow: 0 0 12px rgba(0, 192, 243, 0.7);
+}
+
+.separator-blue::before { left: 38%; }
+.separator-blue::after { right: 38%; background: var(--magnetic-purple); box-shadow: 0 0 12px rgba(136, 77, 157, 0.6); }
+
+.separator-white,
+.separator.line-separator {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0.85) 70%, transparent 100%);
+  border-radius: 999px;
+}
+
+.separator-white::before,
+.separator-white::after,
+.separator.line-separator::before,
+.separator.line-separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: var(--white);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.separator-white::before,
+.separator.line-separator::before { left: 38%; }
+.separator-white::after,
+.separator.line-separator::after { right: 38%; }
+
+/* === Section headlines: subtle gradient accent on hover/focus container === */
+.section .title-area h1 {
+  position: relative;
+  display: inline-block;
+}
+
+/* === Connect section title polish === */
+#connect.section-our-team-freebie .title-area h1.white-text {
+  text-shadow: 0 6px 24px rgba(15, 30, 50, 0.35);
+}
+
+#connect .btn-orange {
+  margin: 6px 8px;
+  box-shadow: 0 8px 28px -10px rgba(255, 103, 32, 0.6), 0 4px 14px -6px rgba(0, 0, 0, 0.25);
+}
+
+/* === Buttons — gradient hover lift; keep Kinetic Orange flat per brand === */
+.btn-orange.btn-fill,
+.btn-orange {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.btn-orange.btn-fill:hover,
+.btn-orange:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 14px 32px -10px rgba(255, 103, 32, 0.55), 0 6px 18px -8px rgba(0, 0, 0, 0.3);
+}
+
+/* === Members chips — branded gradient on active === */
+.members-chip.is-active {
+  background: linear-gradient(135deg, var(--c-spire-blue) 0%, var(--magnetic-purple) 100%);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: 0 6px 18px -6px rgba(0, 192, 243, 0.55);
+}
+
+.members-chip.is-active:hover {
+  filter: brightness(1.06);
+  color: var(--white);
+}
+
+/* === Member card — gradient border on hover === */
+.member-card {
+  position: relative;
+  isolation: isolate;
+  background: var(--white);
+}
+
+.member-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 192, 243, 0), rgba(136, 77, 157, 0));
+  -webkit-mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  transition: background 0.25s ease;
+  z-index: 1;
+}
+
+.member-card:hover::before {
+  background: linear-gradient(135deg, var(--c-spire-blue) 0%, var(--magnetic-purple) 100%);
+}
+
+.member-card:hover {
+  border-color: transparent;
+  box-shadow: 0 16px 32px -16px rgba(15, 30, 50, 0.25);
+}
+
+/* === Event card — same gradient-border treatment === */
+.event-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.event-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 192, 243, 0), rgba(136, 77, 157, 0));
+  -webkit-mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  transition: background 0.25s ease;
+  z-index: 0;
+}
+
+.event-card:hover::before {
+  background: linear-gradient(135deg, var(--c-spire-blue) 0%, var(--magnetic-purple) 100%);
+}
+
+.event-card:hover {
+  border-color: transparent;
+  box-shadow: 0 18px 36px -18px rgba(15, 30, 50, 0.28);
+}
+
+.event-card > .row,
+.event-card > .event-card__map,
+.event-card > .event-card__badge {
+  position: relative;
+  z-index: 1;
+}
+
+/* === Role badges — soften with gradient stroke === */
+.role-badge {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+}
+
+/* === Description text on photo-overlay sections === */
+.filter .title-area .description,
+.filter-dark .title-area .description {
+  text-shadow: 0 2px 14px rgba(15, 30, 50, 0.45);
+}
+
+/* === Tab content (officer bios) — generous spacing on the now-glow background === */
+.tab-content .tab-pane {
+  padding-top: 8px;
+}
+
+/* === Reduced motion respect === */
+@media (prefers-reduced-motion: reduce) {
+  .section-header::after {
+    animation: none;
+    opacity: 0.85;
+  }
+  .section-header .title-area img { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* === Mobile polish === */
+@media (max-width: 768px) {
+  .separator { width: 160px; }
 }
