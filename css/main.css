@@ -1,7 +1,11 @@
 :root {
   --c-spire-blue: #00C0F3;
   --steel-blue: #0F3D58;
-  --orange: #F04F23;
+  --onyx-black: #131E29;
+  --magnetic-purple: #884D9D;
+  --quantum-purple: #543161;
+  --kinetic-orange: #FF6720;
+  --orange: #FF6720;
   --cool-gray: #98A4AE;
   --light-stone: #E4E8F0;
   --white: #ffffff;
@@ -10,45 +14,72 @@
 }
 
 html {
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   background: var(--c-spire-blue);
   font-size: 16pt;
   color: var(--steel-blue);
+  letter-spacing: 0.01em;
 }
 
 body {
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   font-size: 16pt;
+  font-weight: 400;
   color: var(--steel-blue);
+  letter-spacing: 0.01em;
+  line-height: 1.5;
 }
 
 h1 {
-  font-family: 'Comfortaa', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   font-size: 36pt;
   color: var(--steel-blue);
   text-transform: lowercase !important;
   margin-top: 10px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
 }
 
 h2 {
-  font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   font-size: 22pt;
-  font-weight: bold;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 h3 {
-  font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   font-size: 17pt;
-  font-weight: bold;
+  font-weight: 800;
   color: var(--steel-blue);
+  line-height: 1.3;
 }
 
 sub-head {
-  font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   font-size: 17pt;
-  font-weight: bold;
+  font-weight: 600;
+}
+
+.eyebrow {
+  font-family: 'Nunito', Arial, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.kinetic-orange-text {
+  color: var(--kinetic-orange) !important;
+}
+
+.magnetic-purple-text {
+  color: var(--magnetic-purple) !important;
+}
+
+.onyx-black-text {
+  color: var(--onyx-black) !important;
 }
 
 .white-text {
@@ -97,10 +128,11 @@ nav:not(.navbar-transparent) {
 }
 
 .btn {
-  font-family: 'Barlow Semi Condensed', Arial, sans-serif;
-  font-weight: bold;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-weight: 700;
   font-size: 14pt;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   padding: 10px 30px;
   border-radius: 1.75em;
 }
@@ -223,7 +255,7 @@ nav:not(.navbar-transparent) {
   background: transparent;
   color: var(--steel-blue);
   font-size: 13px;
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -290,10 +322,10 @@ nav:not(.navbar-transparent) {
 
 .member-card__name {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 800;
   margin: 0;
   color: var(--steel-blue);
-  font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
 }
 
 .member-card__handle {
@@ -322,7 +354,7 @@ nav:not(.navbar-transparent) {
   background: var(--light-stone);
   border: 1px solid var(--cool-gray);
   color: var(--steel-blue);
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
 }
 
 .role-badge__dot {
@@ -405,14 +437,18 @@ nav:not(.navbar-transparent) {
   padding: 2px 10px;
   border-radius: 980px;
   font-size: 11px;
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   background: var(--cool-gray);
   color: var(--white);
   margin-bottom: 8px;
 }
 
 .event-card__title {
-  font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-weight: 600;
   color: var(--steel-blue);
   margin-top: 0;
   margin-bottom: 6px;
@@ -434,8 +470,10 @@ nav:not(.navbar-transparent) {
 .event-card__subtitle {
   color: var(--c-spire-blue);
   font-size: 14px;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 600;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin-bottom: 16px;
 }
 
