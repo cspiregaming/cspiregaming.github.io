@@ -350,8 +350,7 @@
       { name: 'Mario Steals Triforce', fn: sceneMarioStealsTriforce },
       { name: 'Among Us × Fall Guy',   fn: sceneAmongUsFallGuys },
       { name: 'Tetris Drop',           fn: sceneTetrisStack },
-      { name: 'Invader March',         fn: sceneInvaderMarch },
-      { name: 'd20 Roll',              fn: sceneD20Roll }
+      { name: 'Invader March',         fn: sceneInvaderMarch }
     ];
   }
 
@@ -545,24 +544,6 @@
       invaders.push(inv);
     });
     cleanup(invaders, done, 7000);
-  }
-
-  // ── Scene 6: D20 rolls + bounces across the screen ───────────────
-  function sceneD20Roll(stage, done) {
-    var d20 = makeSceneSprite(stage, 'fa', 'fa-dice', { top: '60%', left: '-10vw' });
-    d20.animate(
-      [
-        { left: '-10vw', top: '60%', transform: 'rotate(0)' },
-        { left: '15vw',  top: '50%', transform: 'rotate(180deg)' },
-        { left: '30vw',  top: '60%', transform: 'rotate(360deg)' },
-        { left: '50vw',  top: '48%', transform: 'rotate(620deg)' },
-        { left: '70vw',  top: '60%', transform: 'rotate(900deg)' },
-        { left: '90vw',  top: '52%', transform: 'rotate(1140deg)' },
-        { left: '115vw', top: '60%', transform: 'rotate(1440deg)' }
-      ],
-      { duration: 4500, easing: 'linear', fill: 'forwards' }
-    );
-    cleanup([d20], done, 5000);
   }
 
   // ── Konami code easter egg — advances through hero scenes ───────
