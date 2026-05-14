@@ -147,13 +147,15 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
 
   function decorateEvent(ev) {
     var startTime = ev.startTime ? new Date(ev.startTime) : null;
+    var locationIsUrl = ev.location && /^https?:\/\//i.test(ev.location.trim());
+    var eventUrl = locationIsUrl ? ev.location.trim() : null;
     var subtitle = ev.subtitle;
     if (!subtitle && startTime && !isNaN(startTime)) {
       subtitle = startTime.toLocaleString(undefined, {
         weekday: 'short', month: 'short', day: 'numeric',
         hour: 'numeric', minute: '2-digit',
       });
-      if (ev.location) subtitle += ' | ' + ev.location;
+      if (ev.location && !locationIsUrl) subtitle += ' | ' + ev.location;
     }
     var actionButtonText = ev.actionButtonText;
     var actionButtonUrl = ev.actionButtonUrl;
@@ -168,6 +170,7 @@ angular.module('cSpireGamingWebApp').controller('MainCtrl', function ($scope, $f
       imagePath: ev.imagePath || ev.coverImage || null,
       actionButtonText: actionButtonText,
       actionButtonUrl: actionButtonUrl,
+      eventUrl: eventUrl,
       googleMapsUrl: ev.googleMapsUrl || null,
       isPast: ev.status === 'COMPLETED',
       source: ev.source,

@@ -567,6 +567,37 @@ sub-head {
   margin-bottom: 16px;
 }
 
+.event-card__url {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--kinetic-orange);
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  margin-bottom: 16px;
+  word-break: break-word;
+}
+
+.event-card__url:hover,
+.event-card__url:focus {
+  color: var(--kinetic-orange);
+  text-decoration: underline;
+}
+
+.event-card__url i {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.event-card__url:hover i,
+.event-card__url:focus i {
+  transform: translateX(3px);
+}
+
 .event-card__description {
   color: var(--steel-blue);
   font-size: 15px;

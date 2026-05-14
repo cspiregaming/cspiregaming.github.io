@@ -157,6 +157,9 @@
                               aria-label="From Discord"></i>
           </h2>
           <p class="event-card__subtitle" ng-if="event.subtitle">{{event.subtitle}}</p>
+          <a class="event-card__url" ng-if="event.eventUrl" target="_blank" rel="noopener" ng-href="{{event.eventUrl}}">
+            Event URL <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
           <div class="event-card__description" ng-if="event.description" ng-bind-html="event.description"></div>
           <a class="btn btn-orange btn-fill" target="_blank" ng-if="event.actionButtonUrl" ng-href="{{event.actionButtonUrl}}">
             {{event.actionButtonText || 'Learn more'}}
